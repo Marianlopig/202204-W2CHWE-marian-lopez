@@ -17,6 +17,10 @@ class Cell {
     this.nextStatus = status;
   }
 
+  setStatus(status) {
+    this.status = status;
+  }
+
 }
 
 const getAllNumbers = (x, y) => {
@@ -44,21 +48,32 @@ const countNeighbourgAlive = (y, x) => {
   return neighbourgList.filter(obj => typeof (obj) !== "undefined" && obj.status === "alive").length;
 };
 
-finalGrid.forEach(cell => {
-  const aliveNeighbourg = countNeighbourgAlive(cell.x, cell.y)
-  if (cell.status === "dead" && aliveNeighbourg >= 3) {
-    cell.setNextStatus("alive");
-  }
-  else if (cell.status === "alive" && (aliveNeighbourg === 2 || aliveNeighbourg === 3)) {
-    cell.setNextStatus("alive");
-  }
-  else if (cell.status === "alive" && aliveNeighbourg < 2) {
-    cell.setNextStatus("dead");
-  }
-  else if (cell.status === "alive" && aliveNeighbourg > 3) {
-    cell.setNextStatus("dead");
-  }
-  else {
-    cell.setNextStatus(cell.status)
-  }
-})
+const calculateNextStatus = () => {
+  finalGrid.forEach(cell => {
+    const aliveNeighbourg = countNeighbourgAlive(cell.x, cell.y)
+    if (cell.status === "dead" && aliveNeighbourg >= 3) {
+      cell.setNextStatus("alive");
+    }
+    else if (cell.status === "alive" && (aliveNeighbourg === 2 || aliveNeighbourg === 3)) {
+      cell.setNextStatus("alive");
+    }
+    else if (cell.status === "alive" && aliveNeighbourg < 2) {
+      cell.setNextStatus("dead");
+    }
+    else if (cell.status === "alive" && aliveNeighbourg > 3) {
+      cell.setNextStatus("dead");
+    }
+    else {
+      cell.setNextStatus(cell.status)
+    }
+  })
+}
+
+const switchStatus = () => {
+  finalGrid.forEach(cell => {
+    cell.setStatus(cell.newStatus)
+  })
+}
+
+calculateNextStatus();
+switchStatus();
