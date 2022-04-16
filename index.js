@@ -15,3 +15,4 @@ const getAllNumbers = (numbers) => {
   }
   return fullObject
 };
+getAllNumbers();
