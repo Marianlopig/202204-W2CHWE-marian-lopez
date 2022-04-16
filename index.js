@@ -14,6 +14,4 @@ const getAllNumbers = (numbers) => {
     fullObject.push(new ObjectProperty(i));
   }
   return fullObject
-}
-
-console.log(getAllNumbers(99))
+};
