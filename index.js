@@ -20,5 +20,4 @@ const getAllNumbers = (y, x) => {
   }
   return fullObject
 };
-console.log(getAllNumbers(7, 5));
-
+getAllNumbers(7, 5);
