@@ -34,7 +34,7 @@ const countNeighbourgAlive = (y, x) => {
   neighbourgList.push(finalGrid.filter(obj => obj.x === x + 1 && obj.y === y - 1)[0]);
   neighbourgList.push(finalGrid.filter(obj => obj.x === x + 1 && obj.y === y)[0]);
   neighbourgList.push(finalGrid.filter(obj => obj.x === x + 1 && obj.y === y + 1)[0]);
-  return neighbourgList.filter(obj => typeof (obj) !== "undefined" && obj.status === "alive").lenght;
+  return neighbourgList.filter(obj => typeof (obj) !== "undefined" && obj.status === "alive").length;
 };
 countNeighbourgAlive(4, 4);
 
