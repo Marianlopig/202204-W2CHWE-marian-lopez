@@ -1,18 +1,24 @@
 class ObjectProperty {
-  id;
+  y;
+  x;
   status = "Dead";
 
-  constructor(numbers) {
-    this.id = numbers;
+  constructor(row, column) {
+    this.y = row;
+    this.x = column;
     this.status = "Dead"
   }
 }
 
-const getAllNumbers = (numbers) => {
+const getAllNumbers = (y, x) => {
   const fullObject = []
-  for (let i = 1; i <= numbers; i++) {
-    fullObject.push(new ObjectProperty(i));
+
+  for (let column = 1; column <= x; column++) {
+    for (let row = 1; row <= y; row++) {
+      fullObject.push(new ObjectProperty(row, column));
+    }
   }
   return fullObject
 };
-getAllNumbers();
+console.log(getAllNumbers(7, 5));
+
