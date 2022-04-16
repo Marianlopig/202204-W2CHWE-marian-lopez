@@ -75,5 +75,15 @@ const switchStatus = () => {
   })
 }
 
+const selectCell = (x, y) => {
+  const selectedCell = finalGrid.filter(cell => cell.x === x && cell.y === y)[0]
+  if (selectedCell.status === "dead") {
+    selectedCell.setStatus("alive");
+  }
+  else {
+    selectedCell.setStatus("dead");
+  }
+}
+selectCell(1, 1);
 calculateNextStatus();
 switchStatus();
