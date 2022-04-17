@@ -2,12 +2,12 @@ const selectedSize = () => {
   const frontTable = document.getElementById("frontTable");
   const rowsDefined = document.getElementById("inputRows").value;
   const colsDefined = document.getElementById("inputCols").value;
-
+  let id = 1;
   for (let rowIndex = 0; rowIndex < rowsDefined; rowIndex++) {
     const tr = document.createElement("tr");
     for (let colIndex = 0; colIndex < colsDefined; colIndex++) {
       const td = document.createElement("td");
-
+      td.setAttribute("id", `cell_${id++}`)
       tr.appendChild(td);
     }
     frontTable.appendChild(tr);
@@ -22,11 +22,11 @@ class Cell {
   status = "dead";
   nextStatus = "";
 
-  constructor(column, row, id) {
-    this.y = row;
-    this.x = column;
+  constructor(row, column, id) {
+    this.y = column;
+    this.x = row;
     this.status = "dead";
-    this.id = id;
+    this.id = `cell_${id}`
     this.nextStatus = "";
   }
 
@@ -43,15 +43,14 @@ class Cell {
 const getAllNumbers = (x, y) => {
   const fullObject = []
   let id = 1;
-  for (let column = 1; column <= x; column++) {
-    for (let row = 1; row <= y; row++) {
+  for (let column = 1; column <= y; column++) {
+    for (let row = 1; row <= x; row++) {
       fullObject.push(new Cell(row, column, id++));
     }
   }
   return fullObject
 };
 const finalGrid = getAllNumbers(5, 7);
-
 
 const countNeighbourgAlive = (x, y) => {
   const neighbourgList = []
