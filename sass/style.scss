@@ -1,3 +1,12 @@
-h1 {
-  color: red;
+.cell {
+  width: 20px;
+  height: 20px;
+
+  &.cellAlive {
+    background-color: aquamarine;
+  }
+
+  &.cellDead {
+    background-color: white;
+  }
 }
