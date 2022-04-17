@@ -1,20 +1,27 @@
-const selectedSize = () => {
-  const frontTable = document.getElementById("frontTable");
-  const rowsDefined = document.getElementById("inputRows").value;
-  const colsDefined = document.getElementById("inputCols").value;
-  let id = 1;
-  for (let rowIndex = 0; rowIndex < rowsDefined; rowIndex++) {
-    const tr = document.createElement("tr");
-    for (let colIndex = 0; colIndex < colsDefined; colIndex++) {
-      const td = document.createElement("td");
-      td.setAttribute("id", `cell_${id++}`)
-      tr.appendChild(td);
+let finalGrid = "";
+const changeColorStatus = () => {
+  finalGrid.forEach(cell => {
+    const cellTd = document.getElementById(cell.id)
+    if (cell.status === "dead") {
+      cellTd.setAttribute("class", "cell cellDead");
     }
-    frontTable.appendChild(tr);
-  }
-  return [rowsDefined, colsDefined];
+
+    else {
+      cellTd.setAttribute("class", "cell cellAlive")
+    };
+  })
 }
-document.getElementById("make").addEventListener("click", selectedSize);
+
+const selectCell = (id) => {
+  const selectedCell = finalGrid.filter(cell => cell.id === id)[0]
+  if (selectedCell.status === "dead") {
+    selectedCell.setStatus("alive");
+  }
+  else {
+    selectedCell.setStatus("dead");
+  }
+  changeColorStatus()
+}
 class Cell {
   y;
   x;
@@ -50,7 +57,28 @@ const getAllNumbers = (x, y) => {
   }
   return fullObject
 };
-const finalGrid = getAllNumbers(5, 7);
+
+
+const selectedSize = () => {
+  const frontTable = document.getElementById("frontTable");
+  const rowsDefined = document.getElementById("inputRows").value;
+  const colsDefined = document.getElementById("inputCols").value;
+  finalGrid = getAllNumbers(rowsDefined, colsDefined);
+  let id = 1;
+  for (let rowIndex = 0; rowIndex < rowsDefined; rowIndex++) {
+    const tr = document.createElement("tr");
+    for (let colIndex = 0; colIndex < colsDefined; colIndex++) {
+      const td = document.createElement("td");
+      td.setAttribute("id", `cell_${id++}`)
+      td.setAttribute("class", "cell cellDead")
+      td.addEventListener("click", () => selectCell(td.id));
+      tr.appendChild(td);
+    }
+    frontTable.appendChild(tr);
+  }
+  return [rowsDefined, colsDefined];
+}
+document.getElementById("make").addEventListener("click", selectedSize);
 
 const countNeighbourgAlive = (x, y) => {
   const neighbourgList = []
@@ -64,7 +92,7 @@ const countNeighbourgAlive = (x, y) => {
   neighbourgList.push(finalGrid.filter(obj => obj.x === x + 1 && obj.y === y + 1)[0]);
   return neighbourgList.filter(obj => typeof (obj) !== "undefined" && obj.status === "alive").length;
 };
-countNeighbourgAlive(3, 3);
+
 
 const calculateNextStatus = () => {
   finalGrid.forEach(cell => {
@@ -85,23 +113,20 @@ const calculateNextStatus = () => {
       cell.setNextStatus(cell.status)
     }
   })
+
 }
 
 const switchStatus = () => {
   finalGrid.forEach(cell => {
-    cell.setStatus(cell.newStatus)
+    cell.setStatus(cell.nextStatus)
   })
 }
+const runStep = () => {
+  setInterval(() => {
+    calculateNextStatus();
+    switchStatus();
+    changeColorStatus();
+  }, 1000)
+};
 
-const selectCell = (x, y) => {
-  const selectedCell = finalGrid.filter(cell => cell.x === x && cell.y === y)[0]
-  if (selectedCell.status === "dead") {
-    selectedCell.setStatus("alive");
-  }
-  else {
-    selectedCell.setStatus("dead");
-  }
-}
-selectCell(3, 3);
-calculateNextStatus(3, 3);
-switchStatus();
+document.getElementById("run").addEventListener("click", runStep);
