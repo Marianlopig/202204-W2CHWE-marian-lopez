@@ -1,3 +1,20 @@
+const selectedSize = () => {
+  const frontTable = document.getElementById("frontTable");
+  const rowsDefined = document.getElementById("inputRows").value;
+  const colsDefined = document.getElementById("inputCols").value;
+
+  for (let rowIndex = 0; rowIndex < rowsDefined; rowIndex++) {
+    const tr = document.createElement("tr");
+    for (let colIndex = 0; colIndex < colsDefined; colIndex++) {
+      const td = document.createElement("td");
+
+      tr.appendChild(td);
+    }
+    frontTable.appendChild(tr);
+  }
+  return [rowsDefined, colsDefined];
+}
+document.getElementById("make").addEventListener("click", selectedSize);
 class Cell {
   y;
   x;
@@ -5,7 +22,7 @@ class Cell {
   status = "dead";
   nextStatus = "";
 
-  constructor(row, column, id) {
+  constructor(column, row, id) {
     this.y = row;
     this.x = column;
     this.status = "dead";
@@ -35,7 +52,8 @@ const getAllNumbers = (x, y) => {
 };
 const finalGrid = getAllNumbers(5, 7);
 
-const countNeighbourgAlive = (y, x) => {
+
+const countNeighbourgAlive = (x, y) => {
   const neighbourgList = []
   neighbourgList.push(finalGrid.filter(obj => obj.x === x - 1 && obj.y === y - 1)[0]);
   neighbourgList.push(finalGrid.filter(obj => obj.x === x - 1 && obj.y === y)[0]);
@@ -47,6 +65,7 @@ const countNeighbourgAlive = (y, x) => {
   neighbourgList.push(finalGrid.filter(obj => obj.x === x + 1 && obj.y === y + 1)[0]);
   return neighbourgList.filter(obj => typeof (obj) !== "undefined" && obj.status === "alive").length;
 };
+countNeighbourgAlive(3, 3);
 
 const calculateNextStatus = () => {
   finalGrid.forEach(cell => {
@@ -84,6 +103,6 @@ const selectCell = (x, y) => {
     selectedCell.setStatus("dead");
   }
 }
-selectCell(1, 1);
-calculateNextStatus();
+selectCell(3, 3);
+calculateNextStatus(3, 3);
 switchStatus();
