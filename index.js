@@ -63,6 +63,7 @@ const selectedSize = () => {
   const frontTable = document.getElementById("frontTable");
   const rowsDefined = document.getElementById("inputRows").value;
   const colsDefined = document.getElementById("inputCols").value;
+
   finalGrid = getAllNumbers(rowsDefined, colsDefined);
   let id = 1;
   for (let rowIndex = 0; rowIndex < rowsDefined; rowIndex++) {
@@ -121,6 +122,12 @@ const switchStatus = () => {
     cell.setStatus(cell.nextStatus)
   })
 }
+// const getColorGrid = () => {
+//   const colorDefined = document.getElementById("colorPicker").value;
+//   document.getElementsByClassName("cellAlive").style.backgroundColor = "blue";
+// }
+// getColorGrid();
+
 const runStep = () => {
   setInterval(() => {
     calculateNextStatus();

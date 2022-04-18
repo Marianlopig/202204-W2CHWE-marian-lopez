@@ -7,22 +7,39 @@
     <title>Document</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Game of Life</h1>
-    <h2>Escoge el tamaño de la tabla</h2>
-    Filas
-    <input type="text" id="inputRows" />
-    Columnas
-    <input type="text" id="inputCols" />
-    <button id="make">Save</button>
-    <h2>Escoge un color</h2>
-    <input type="color" id="colorPicker" />
+    <div class="mainDiv">
+      <header>
+        <h1>GAME OF LIFE</h1>
+      </header>
+      <div>
+        <section class="sizeSelector">
+          <h2>Escoge el tamaño de la tabla</h2>
+          <div class="sizeSelector rows-col">
+            Filas <input type="text" id="inputRows" />
+          </div>
+          <div class="sizeSelector rows-col">
+            Columnas <input type="text" id="inputCols" />
+          </div>
+          <button id="make">Save</button>
+        </section>
+        <section>
+          <!-- <h2>Escoge un color</h2>
+          <input type="color" id="colorPicker" /> -->
 
-    <h2>Juguemos</h2>
-    <button id="run">Run</button>
-
-    <table border="1px" id="frontTable"></table>
+          <h2>Juguemos</h2>
+          <button id="run">Run</button>
+        </section>
+        <div><table border="1px" id="frontTable"></table></div>
+      </div>
+    </div>
     <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
